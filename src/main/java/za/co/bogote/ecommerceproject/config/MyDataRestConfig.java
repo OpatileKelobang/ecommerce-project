@@ -4,6 +4,7 @@ import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer;
 import org.springframework.http.HttpMethod;
 import za.co.bogote.ecommerceproject.entity.Product;
+import za.co.bogote.ecommerceproject.entity.ProductCategory;
 
 public class MyDataRestConfig implements RepositoryRestConfigurer {
 
@@ -14,6 +15,12 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         // Disable HTTTP methods for Product: PUT, POST amd DELETE
         config.getExposureConfiguration()
                 .forDomainType(Product.class)
+                .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
+                .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions));
+
+        // Disable HTTTP methods for ProductCategory: PUT, POST amd DELETE
+        config.getExposureConfiguration()
+                .forDomainType(ProductCategory.class)
                 .withItemExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions))
                 .withCollectionExposure((metdata, httpMethods) -> httpMethods.disable(unsupportedActions));
     }
